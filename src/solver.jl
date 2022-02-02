@@ -1,18 +1,5 @@
-mutable struct parameters
-    Nt
-    Δt
-    L
-    ɸ
-    x
-    ẋ
-    parameter_ɸ
-    para_x
-    para_V
-end
-
-
-function solver(Nt::Int , Δt::Float64, L::Float64, N::Int,ɸ::Array , x::Float64, ẋ::Float64, 
-    parameter_ɸ, para_x, para_V, ɸ_fct, x_fct, V_fct, times_save=reverse([i for i = 1:Nt]))
+function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Float64, ẋ::Float64, 
+    parameter_ɸ, para_x, para_V, ɸ_fct::Function, x_fct::Function, V_fct::Function, times_save=reverse([i for i = 1:Nt]))
     V = [zero(ɸ) for _ = 1:length(size(ɸ))+1]
     xarray = [i for i in range(-L / 2.0, L / 2.0, length = N)]
     update_V = ((V, x, t) -> V_fct(V, x, t, xarray, para_V...))
@@ -37,7 +24,7 @@ function solver(Nt::Int , Δt::Float64, L::Float64, N::Int,ɸ::Array , x::Float6
             pop!(times_save) # O(1) 
         end
     end
-    return ɸ_r, x_r, ẋ_r, parameters(Nt,Δt, L, ɸ, x, ẋ, parameter_ɸ, para_x, para_V)
+    return ɸ_r, x_r, ẋ_r
 end
 
 
