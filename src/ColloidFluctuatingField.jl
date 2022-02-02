@@ -2,8 +2,18 @@ __precompile__
 
 @everywhere module ColloidFluctuatingField
 
-include("helper.jl")
+using FFTW
+using Random
 
-# Write your package code here.
+include("helper.jl")
+include("modelA_fourier_galerkin.jl")
+include("NewtonImp.jl")
+include("solver.jl")
+
+function time_propagation()
+    # code
+    return nothing
+end
+
 
 end

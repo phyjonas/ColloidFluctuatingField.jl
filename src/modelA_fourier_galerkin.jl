@@ -1,9 +1,11 @@
-function Φ_galerk_modelA(Φ, V, Δt, λ, r, g, k, Δx, T)
+function Φ_galerk_modelA(Φ::Array{Float64}, V::Array{Float64},
+     Δt::Float64, λ::Float64, r::Float64, g::Float64, 
+     k::Array{Float64,1}, Δx::Float64, T::Float64)
     ξ = sqrt(T * Δt / Δx) * sampler(size(Φ))
     d = length(size(Φ))
     R = CartesianIndices(Φ)
-    out = similar(ɸ)
-    @. out = (ɸ - Δt * (g * ɸ^2 + r + λ * V[1]) * ɸ + ξ)
+    out = Array{Complex}(undef, size(arr))
+    @. out = (ɸ - Δt * (g * ɸ^2 + r + λ * V) * ɸ + ξ)
     out = fft(out)
     for I in R
         out[I] = 1.0 / (1.0 + Δt * sum([k[I[i]]^2 for i = 1:d])) * out[I]
@@ -12,10 +14,3 @@ function Φ_galerk_modelA(Φ, V, Δt, λ, r, g, k, Δx, T)
     @. ɸ = real(out)
 end
 
-#t =0.0
-#r = 0.1
-#g = 0.0
-#D = 1.0
-#T = 1.0
-#λ = 0.0
-#@btime ɸ_galerk_modelA(ɸ, V, t, Δt, λ, r, g, k, Δx, T, D)
