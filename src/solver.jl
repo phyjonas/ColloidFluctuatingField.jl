@@ -4,27 +4,28 @@ function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Array{
     xarray = [i for i in range(-L / 2.0, L / 2.0, length = N)]
     update_V = ((V, x, t) -> V_fct(V, x, t, xarray, para_V...))
     ɸ_step = ((ɸ, V, t) -> ɸ_fct(ɸ, V, t, Δt, parameter_ɸ...))
-    x_step = (
-        (ɸ, V, x, ẋ) ->
-            x_fct(ɸ, V, x, ẋ, Δt, para_x...)
-    )
+    x_step = ((ɸ, V, x, ẋ) -> x_fct(ɸ, V, x, ẋ, Δt, para_x...))
     ɸ_r = [zero(ɸ) for _ = 1:length(times_save)]
     x_r = [zero(x) for _ = 1:length(times_save)]
     ẋ_r = [zero(ẋ) for _ = 1:length(times_save)]
+    ẍ_r = [zero(ẋ) for _ = 1:length(times_save)]
     j = 1
+    
     for i = 1:Nt
         update_V(V, x, i * Δt)
-        x_step(ɸ, V, x, ẋ)
+        temp = x_step(ɸ, V, x, ẋ)
         ɸ_step(ɸ, V[1], i * Δt)
+        
         if i == times_save[length(times_save)] # O(1) 
             ɸ_r[j] = deepcopy(ɸ)
             x_r[j] = deepcopy(x)
             ẋ_r[j] = deepcopy(ẋ)
+            ẍ_r[j] = deepcopy(temp)
             j += 1
             pop!(times_save) # O(1) 
         end
     end
-    return ɸ_r, x_r, ẋ_r
+    return ɸ_r, x_r, ẋ_r, ẍ_r
 end
 
 
