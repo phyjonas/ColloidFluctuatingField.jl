@@ -9,6 +9,17 @@
 The goal of this package is to simulate the dynamics of a colloide in a fluctuating field. The package is designed to work in any dimension. For now the only provided methods are a Newtonian colloide and Model A for the fluctuating field. Over time more field theories and potentially different colloide dynamics will be added.
 
 It is possible to provide costume functions for the colloid, the field and the impurity which will then be used to perform the time propagation.
+# Table of Contents
+1. [Functionality](#Functionality)
+    1. [Arguments](#Arguments)
+    2. [Output](#Output)
+    3. [Parameter-struct][#Parameter-struct]
+2. [Propagation functions and how to provide a costum function](#Propagation functions and how to provide a costum function)
+    1. [Field](#Field)
+    2. [Colloid][#Colloid]
+    3. [Potential][#Potential]
+
+
 
 ## Functionality
 The main function is
@@ -27,7 +38,7 @@ It performs the time propagation of the system and outputs the system configurat
 
 ɸ_r(x_r, ẋ_r) Array containing the system configurations at the desired times
 
-**Parameter stuct**
+### Parameter-struct
 
 ```julia
 @with_kw struct para
@@ -57,7 +68,7 @@ end
 
 ## Propagation functions and how to provide a costum function
 
-### Field Φ
+### Field
 
 All functions have to be of the form (note that for example even if not needed t still has to be supplied)
 
@@ -75,7 +86,7 @@ f(Φ, V, t, Δt, para_Φ...)
 Spectral-Galerkin method to propagate the Field 
 para_Φ = [λ::Float64, r::Float64, g::Float64,  k::Array{Float64,1},Δx::Float64, T::Float64]
 
-### Colloid x
+### Colloid
 
 All functions have to be of the form 
 
@@ -95,7 +106,7 @@ Simple Euler-method for propagating a newtonian collid in time
 
 para_x = [M::Float64, λ::Float64, Δx::Float64]
 
-### Potential V
+### Potential
 
 All functions have to be of the form
 ```Julia
