@@ -14,6 +14,4 @@ It is possible to provide costume functions for the colloid, the field and the i
 The main function is
 
 ```julia
-time_propagation(p::para, method_Φ::String, method_x::String,
-method_V::String, costum_Φ=nothing, costum_x = nothing, 
-    costum_V = nothing)
+time_propagation(p, method_Φ, method_x, method_V, costum_Φ, costum_x,costum_V)
