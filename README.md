@@ -13,11 +13,11 @@ It is possible to provide costume functions for the colloid, the field and the i
 1. [Functionality](#Functionality)
     1. [Arguments](#Arguments)
     2. [Output](#Output)
-    3. [Parameter-struct][#Parameter-struct]
-2. [Propagation functions and how to provide a costum function](#Propagation functions and how to provide a costum function)
+    3. [Parameter-struct](#Parameter-struct)
+2. [Propagation functions and how to provide a costum function](#Propagation-functions)
     1. [Field](#Field)
-    2. [Colloid][#Colloid]
-    3. [Potential][#Potential]
+    2. [Colloid](#Colloid)
+    3. [Potential](#Potential)
 
 
 
@@ -66,7 +66,7 @@ end
 - times_save (optional) the time-steps when the configuration the the system is saved
 
 
-## Propagation functions and how to provide a costum function
+## Propagation-functions
 
 ### Field
 
