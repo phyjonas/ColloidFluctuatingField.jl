@@ -5,8 +5,8 @@ function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Array{
     update_V = ((V, x, t) -> V_fct(V, x, t, xarray, para_V...))
     ɸ_step = ((ɸ, V, t) -> ɸ_fct(ɸ, V, t, Δt, parameter_ɸ...))
     x_step = (
-        (ɸ, V, x, xdot, t) ->
-            x_fct(ɸ, V, x, xdot, t, Δt, para_x...)
+        (ɸ, V, x, ẋ,) ->
+            x_fct(ɸ, V, x, ẋ, Δt, para_x...)
     )
     ɸ_r = [zero(ɸ) for _ = 1:length(times_save)]
     x_r = [zero(x) for _ = 1:length(times_save)]
