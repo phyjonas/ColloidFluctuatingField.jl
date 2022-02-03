@@ -21,9 +21,11 @@ It performs the time propagation of the system and outputs the system configurat
 
 - p ::para provides the parameters through a costum struct, detials will be provided below, if one wants to use a costum function use "costum"
 - method_Φ::String function that propagates the field in time; currently implemented: ModelA-Galerkin, if one wants to use a costum function use "costum"
-- method_x::String function that propagates the colloid in time; currently implemented: Newton, if one wants to use a costum function use "costum"
-method_V::String function that propagates the colloid in time; currently implemented: Gaussian, if one wants to use a costum function use "costum"
+- method_x::String function that propagates the colloid in time; currently implemented: Newton, if one wants to use a costum function use "costum" method_V::String function that propagates the colloid in time; currently implemented: Gaussian, if one wants to use a costum function use "costum"
 - costum_(Φ,x,V)::func optional if one wants to procide a costum function this will be done here
+### Output
+
+ɸ_r(x_r, ẋ_r) Array containing the system configurations at the desired times
 
 **Parameter stuct**
 
@@ -54,3 +56,60 @@ end
 
 
 ## Propagation functions and how to provide a costum function
+
+### Field Φ
+
+All functions have to be of the form (note that for example even if not needed t still has to be supplied)
+
+```Julia
+f(Φ, V, t, Δt, para_Φ...)
+```
+- Φ: Array{Number} the current field configuration
+- V: Array{Float64} the current potential (usually depends on x) but is updated automaticallu
+- Δt: the time discretisation
+- para_Φ: all extra parameter needed to perform a time-step 
+
+#### Pre-implemented
+
+**ModelA-Galerkin**
+Spectral-Galerkin method to propagate the Field 
+para_Φ = [λ::Float64, r::Float64, g::Float64,  k::Array{Float64,1},Δx::Float64, T::Float64]
+
+### Colloid x
+
+All functions have to be of the form 
+
+```Julia
+f(Φ, V, x, ẋ, Δt, para_x...)
+```
+- Φ::Array the current field configuration
+- V::Array{<:Array{Float64}} current Potential, including its derivatives
+- x::Array{Float64,1} current position of the colloid
+- ẋ::Array{Float64,1} current velocity of the colloid
+- Δt::Float64 the time discretisation
+- para_x: all extra parameter needed to perform a time-step 
+
+#### Pre-implemented
+**Newton**
+Simple Euler-method for propagating a newtonian collid in time
+
+para_x = [M::Float64, λ::Float64, Δx::Float64]
+
+### Potential V
+
+All functions have to be of the form
+```Julia
+f(V, x, t, xarray, para_V...)
+```
+
+
+- V::Array{<:Array{Float64}} current potential
+- x::Array current colloid position
+- t::Float64 current time
+- xarray::Array{Float64,1} space array (in any dimension we assume a square grid)
+- para_V all extra parameter needed to perform a time-step 
+
+#### Pre-implemented
+**Gaussian**
+
+para_V = [re::Float64, L::Float64]
