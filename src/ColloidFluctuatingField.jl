@@ -1,7 +1,7 @@
 __precompile__
 
 module ColloidFluctuatingField
-
+export time_propagation, para
 using FFTW
 using Random
 using Parameters
@@ -12,24 +12,21 @@ include("NewtonImp.jl")
 include("solver.jl")
 
 @with_kw struct para
-    Nt::Int
+    Nt::Int64
     Δt::Float64
     L::Float64
-    N::Int
+    N::Int64
     ɸ::Array
-    x::Float64
-    ẋ::Float64
-    parameter_ɸ::Array
+    x::Array{Float64,1}
+    ẋ::Array{Float64,1}
+    para_Φ::Array
     para_x::Array
     para_V::Array
-    ɸ_fct::Function
-    x_fct::Function
-    V_fct::Function
-    times_save=reverse([i for i = 1:Nt])
+    times_save::Array{Int64,1}=reverse([i for i = 1:Nt])
 end
 
 function check_method(method, dic, st)
-    if method in dic
+    if haskey(dic,method)
         ans = dic[method]
         if ans === nothing
             error("Please provide costum method for time propagation of" *st)
@@ -50,11 +47,11 @@ function time_propagation(p::para, method_Φ::String,
     ɸ_fct = check_method(method_Φ, Φ_methods,"Φ")
     V_fct = check_method(method_V, V_methods,"V")
     x_fct = check_method(method_x, x_methods, "x")
-    @unpack Nt, Δt, L, N, ɸ, x, ẋ, parameter_ɸ, para_x, para_V, times_save = p 
-    ɸ_r, x_r, ẋ_r = solver(Nt, Δt, L, N, ɸ, x, ẋ, parameter_ɸ, para_x, para_V, ɸ_fct, x_fct, V_fct, times_save)    
+    @unpack Nt, Δt, L, N, ɸ, x, ẋ, para_Φ, para_x, para_V, times_save = p 
+    ɸ_r, x_r, ẋ_r = solver(Nt, Δt, L, N, ɸ, x, ẋ, para_Φ, para_x, para_V, ɸ_fct, x_fct, V_fct, times_save)    
     return ɸ_r, x_r, ẋ_r, p
 end
 
-export time_propagation,para
+
 
 end

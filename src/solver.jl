@@ -1,4 +1,4 @@
-function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Float64, ẋ::Float64, 
+function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Array{Float64,1}, ẋ::Array{Float64,1}, 
     parameter_ɸ, para_x, para_V, ɸ_fct::Function, x_fct::Function, V_fct::Function, times_save=reverse([i for i = 1:Nt]))
     V = [zero(ɸ) for _ = 1:length(size(ɸ))+1]
     xarray = [i for i in range(-L / 2.0, L / 2.0, length = N)]

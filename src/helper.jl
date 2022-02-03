@@ -61,7 +61,7 @@ function sampler(shape::Tuple)
     randn(shape)
 end
 
-function V_gaussian(V::Array{<:Array{Float64}}, x::Array{Float64}, xarray::Array{Float64}, 
+function V_gaussian(V::Array{<:Array{Float64}}, x::Array, t::Float64, xarray::Array{Float64,1}, 
                     re::Float64, L::Float64)
     R = CartesianIndices(V[1])
     d = length(size(V[1]))
