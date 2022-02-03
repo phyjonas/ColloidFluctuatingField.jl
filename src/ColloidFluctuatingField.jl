@@ -16,7 +16,7 @@ include("solver.jl")
     Δt::Float64
     L::Float64
     N::Int64
-    ɸ::Array
+    Φ::Array
     x::Array{Float64,1}
     ẋ::Array{Float64,1}
     para_Φ::Array
