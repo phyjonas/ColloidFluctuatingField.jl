@@ -10,7 +10,6 @@ function Φ_galerk_modelA(Φ::Array{Float64}, V::Array{Float64},
     for I in R
         out[I] = 1.0 / (1.0 + Δt * sum([k[I[i]]^2 for i = 1:d])) * out[I]
     end
-    println(out)
     out = ifft(out)
     @. Φ = real(out)
 end

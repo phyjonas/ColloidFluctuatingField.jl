@@ -47,8 +47,8 @@ function time_propagation(p::para, method_Φ::String,
     ɸ_fct = check_method(method_Φ, Φ_methods,"Φ")
     V_fct = check_method(method_V, V_methods,"V")
     x_fct = check_method(method_x, x_methods, "x")
-    @unpack Nt, Δt, L, N, ɸ, x, ẋ, para_Φ, para_x, para_V, times_save = p 
-    ɸ_r, x_r, ẋ_r = solver(Nt, Δt, L, N, ɸ, x, ẋ, para_Φ, para_x, para_V, ɸ_fct, x_fct, V_fct, times_save)    
+    @unpack Nt, Δt, L, N, Φ, x, ẋ, para_Φ, para_x, para_V, times_save = p 
+    ɸ_r, x_r, ẋ_r = solver(Nt, Δt, L, N, Φ, x, ẋ, para_Φ, para_x, para_V, ɸ_fct, x_fct, V_fct, times_save)    
     return ɸ_r, x_r, ẋ_r, p
 end
 
