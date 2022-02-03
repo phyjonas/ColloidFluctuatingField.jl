@@ -15,6 +15,7 @@ The main function is
 
 ```julia
 time_propagation(p, method_Φ, method_x, method_V, costum_Φ=nothing, costum_x=nothing, costum_V=nothing)
+```
 
 **Arguments**
 
