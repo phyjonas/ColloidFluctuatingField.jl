@@ -10,13 +10,13 @@ The goal of this package is to simulate the dynamics of a colloide in a fluctuat
 
 It is possible to provide costume functions for the colloid, the field and the impurity which will then be used to perform the time propagation.
 
-### Functionality
+## Functionality
 The main function is
 
 ```julia
 time_propagation(p, method_Φ, method_x, method_V, costum_Φ=nothing, costum_x=nothing, costum_V=nothing)
 ```
-
+It performs the time propagation of the system and outputs the system configuration at the desired times.
 ### Arguments
 
 - p ::para provides the parameters through a costum struct, detials will be provided below, if one wants to use a costum function use "costum"
