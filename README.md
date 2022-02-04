@@ -83,7 +83,9 @@ f(Φ, V, t, Δt, para_Φ...)
 #### Pre-implemented
 
 **ModelA-Galerkin**
+
 Spectral-Galerkin method to propagate the Field 
+
 para_Φ = [λ::Float64, r::Float64, g::Float64,  k::Array{Float64,1},Δx::Float64, T::Float64]
 
 ### Colloid
@@ -102,6 +104,7 @@ f(Φ, V, x, ẋ, Δt, para_x...)
 
 #### Pre-implemented
 **Newton**
+
 Simple Euler-method for propagating a newtonian collid in time
 
 para_x = [M::Float64, λ::Float64, Δx::Float64]
@@ -122,5 +125,7 @@ f(V, x, t, xarray, para_V...)
 
 #### Pre-implemented
 **Gaussian**
+
+Gausian interaction potential; re sets the size of the colloid
 
 para_V = [re::Float64, L::Float64]
