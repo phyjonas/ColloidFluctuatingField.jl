@@ -4,9 +4,9 @@
 [![Coverage](https://codecov.io/gh/phyjonas/ColloidFluctuatingField.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/phyjonas/ColloidFluctuatingField.jl)
 
 
-## Simulating the dynamics of a colloide (impurity) inserted in a fluctuating field
+## Simulating the dynamics of a colloid (impurity) inserted in a fluctuating field
 
-The goal of this package is to simulate the dynamics of a colloide in a fluctuating field. The package is designed to work in any dimension. For now the only provided methods are a Newtonian colloide and Model A for the fluctuating field. Over time more field theories and potentially different colloide dynamics will be added.
+This package aims to simulate the dynamics of a colloid in a fluctuating field. The package is designed to work in any dimension. The only provided methods are a Newtonian colloid and Model A for the fluctuating field. Over time more field theories and potentially different colloid dynamics will be added.
 
 It is possible to provide costume functions for the colloid, the field and the impurity which will then be used to perform the time propagation.
 # Table of Contents
@@ -30,10 +30,10 @@ time_propagation(p, method_Φ, method_x, method_V, costum_Φ=nothing, costum_x=n
 It performs the time propagation of the system and outputs the system configuration at the desired times.
 ### Arguments
 
-- p ::para provides the parameters through a costum struct, detials will be provided below, if one wants to use a costum function use "costum"
-- method_Φ::String function that propagates the field in time; currently implemented: ModelA-Galerkin, if one wants to use a costum function use "costum"
-- method_x::String function that propagates the colloid in time; currently implemented: Newton, if one wants to use a costum function use "costum" method_V::String function that propagates the colloid in time; currently implemented: Gaussian, if one wants to use a costum function use "costum"
-- costum_(Φ,x,V)::func optional if one wants to procide a costum function this will be done here
+- p ::para provides the parameters through a custom struct, details will be provided below; if one wants to use a custom function, use "custom"
+- method_Φ::String function that propagates the field in time; currently implemented: Modele-Galerkin, if one wants to use a custom function, use "custom"
+- method_x::String function that propagates the colloid in time; currently implemented: Newton, if one wants to use a custom function use "custom" method_V::String function that propagates the colloid in time; currently implemented: Gaussian, if one wants to use a custom function use "custom"
+- costum_(Φ,x,V)::func optional if one wants to provide a custom function this will be done here
 ### Output
 
 ɸ_r(x_r, ẋ_r) Array containing the system configurations at the desired times
@@ -59,10 +59,10 @@ end
 - Nt: Number of time-steps
 - Δt: length of one time step, i.e. time deiscrtisation
 - L: Length of the system
-- Φ: Initial Field configutation
+- Φ: Initial Field configuration
 - x: Initial colloid position
 - ẋ: Initial colloid velocity 
-- para_(Φ,x,V): extra parameters provided to the function updating (Φ,x,V) these can contain any number of costum parameters
+- para_(Φ,x,V): extra parameters provided to the function updating (Φ,x,V) these can contain any number of custom parameters
 - times_save (optional) the time-steps when the configuration the the system is saved
 
 
@@ -70,13 +70,13 @@ end
 
 ### Field
 
-All functions have to be of the form (note that for example even if not needed t still has to be supplied)
+All functions have to be of the form (note that, for example even if not needed t still has to be supplied)
 
 ```Julia
 f(Φ, V, t, Δt, para_Φ...)
 ```
 - Φ: Array{Number} the current field configuration
-- V: Array{Float64} the current potential (usually depends on x) but is updated automaticallu
+- V: Array{Float64} the current potential (usually depends on x) but is updated automatically
 - Δt: the time discretisation
 - para_Φ: all extra parameter needed to perform a time-step 
 
@@ -84,7 +84,7 @@ f(Φ, V, t, Δt, para_Φ...)
 
 **ModelA-Galerkin**
 
-Spectral-Galerkin method to propagate the Field 
+Spectral-Galerkin method to propagate the field 
 
 para_Φ = [λ::Float64, r::Float64, g::Float64,  k::Array{Float64,1},Δx::Float64, T::Float64]
 
@@ -105,7 +105,7 @@ f(Φ, V, x, ẋ, Δt, para_x...)
 #### Pre-implemented
 **Newton**
 
-Simple Euler-method for propagating a newtonian collid in time
+Simple Euler-method for propagating a Newtonian collide in time
 
 para_x = [M::Float64, λ::Float64, Δx::Float64]
 
@@ -126,6 +126,6 @@ f(V, x, t, xarray, para_V...)
 #### Pre-implemented
 **Gaussian**
 
-Gausian interaction potential; re sets the size of the colloid
+Gaussian interaction potential; resets the size of the colloid.
 
 para_V = [re::Float64, L::Float64]
