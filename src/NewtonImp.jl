@@ -8,5 +8,5 @@ function NewtonImp(Φ::Array, V::Array{<:Array{Float64}}, x::Array{Float64,1}, �
         x[i] = x[i] + real(Δt * ẋ[i])
     end
     return ans
-end
+end 
 
