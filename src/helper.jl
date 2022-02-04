@@ -66,10 +66,10 @@ function V_gaussian(V::Array{<:Array{Float64}}, x::Array, t::Float64, xarray::Ar
     R = CartesianIndices(V[1])
     d = length(size(V[1]))
     for I in R
-        V[1][I] = exp(-sum((x[i] % L - xarray[I[i]])^2 / re^2 for i = 1:d)) / re
+        V[1][I] = exp(-sum((x[i] % L - xarray[I[i]])^2 / re^2 for i = 1:d)) / (re)^(d)
         for j = 2:length(V)
             V[j][I] =
-                -2 * (xarray[I[j-1]] - x[j-1] % L) / re^3 *
+                -2 * (xarray[I[j-1]] - x[j-1] % L) / re^(2+d) *
                 exp(-sum((x[i] % L - xarray[I[i]])^2 / re for i = 1:d))
         end
     end
@@ -81,8 +81,8 @@ function V_fct_pinned(V, x, t, xarray, re)
     d = length(size(V[1]))
     for I in R
         V[1][I] = (
-            exp(-sum((x[i] - xarray[I[i]])^2 / re^2 for i = 1:d)) / re +
-            exp(-sum((-x[i] - xarray[I[i]])^2 / re^2 for i = 1:d)) / re
+            exp(-sum((x[i] - xarray[I[i]])^2 / (2*re^2) for i = 1:d)) / re +
+            exp(-sum((-x[i] - xarray[I[i]])^2 / (2*re^2) for i = 1:d)) / re
         )
         for j = 2:length(V)
             V[j][I] = 0
