@@ -39,7 +39,7 @@ end
 
 
 function time_propagation(p::para, method_Φ::String, 
-    method_x::String, method_V::String, custom_Φ=nothing, custom_x = nothing, 
+    method_x::String, method_V::String, custom_Φ = nothing, custom_x = nothing, 
     custom_V = nothing)
     Φ_methods = Dict("ModelA-Galerkin" =>Φ_galerk_modelA, "custom" => custom_Φ)
     x_methods = Dict("Newton"=> NewtonImp, "custom" =>custom_x)

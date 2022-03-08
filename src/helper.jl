@@ -73,7 +73,7 @@ function V_gaussian(V::Array{<:Array{Float64}}, x::Array, t::Float64, xarray::Ar
                 exp(-sum((x[i] % L - xarray[I[i]])^2 / (2*re^2) for i = 1:d))
         end
     end
-    return 1 / sqrt(pi)^d * V
+    return 1 / sqrt(2*pi)^d * V
 end
 
 function V_fct_pinned(V, x, t, xarray, re)
