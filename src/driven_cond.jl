@@ -1,4 +1,4 @@
-function Φ_galerk_modelA(Φ::Array{ComplexF64}, V::Array{Float64},
+function Φ_galerk_driven_cond(Φ::Array{ComplexF64}, V::Array{Float64},
     t::Float64, Δt::Float64, λ::Float64, r::ComplexF64, g::Float64, 
     k::Array{Float64,1}, Δx::Float64, T::Float64)
    ξ = sqrt(T * Δt / Δx) * 1.0/sqrt(2.0) * (sampler(size(Φ))+1im*sampler(size(Φ)))

@@ -41,7 +41,8 @@ end
 function time_propagation(p::para, method_Φ::String, 
     method_x::String, method_V::String, custom_Φ = nothing, custom_x = nothing, 
     custom_V = nothing)
-    Φ_methods = Dict("ModelA-Galerkin" =>Φ_galerk_modelA, "custom" => custom_Φ)
+    Φ_methods = Dict("ModelA-Galerkin" =>Φ_galerk_modelA, 
+                    "Driven-Condensate" => Φ_galerk_driven_cond, "custom" => custom_Φ)
     x_methods = Dict("Newton"=> NewtonImp, "custom" =>custom_x)
     V_methods = Dict("Gaussian" => V_gaussian, "custom" =>custom_V)
     ɸ_fct = check_method(method_Φ, Φ_methods,"Φ")
