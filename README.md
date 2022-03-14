@@ -8,7 +8,7 @@
 
 This package aims to simulate the dynamics of a colloid in a fluctuating field. The package is designed to work in any dimension. The only provided methods are a Newtonian colloid and Model A for the fluctuating field. Over time more field theories and potentially different colloid dynamics will be added.
 
-It is possible to provide costume functions for the colloid, the field and the impurity which will then be used to perform the time propagation.
+It is possible to provide costume functions for the field which will then be used to perform the time propagation. The impurity dynamics are constrained to Newtonian dynamics for now. Here we use Verlet integration to perform the time propagation.
 # Table of Contents
 1. [Functionality](#Functionality)
     1. [Arguments](#Arguments)
@@ -103,11 +103,6 @@ f(Φ, V, x, ẋ, Δt, para_x...)
 - para_x: all extra parameter needed to perform a time-step 
 
 #### Pre-implemented
-**Newton**
-
-Simple Euler-method for propagating a Newtonian collide in time
-
-para_x = [M::Float64, λ::Float64, Δx::Float64]
 
 ### Potential
 

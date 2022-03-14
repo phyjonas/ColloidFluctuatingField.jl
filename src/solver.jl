@@ -4,23 +4,27 @@ function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Array{
     xarray = [i for i in range(-L / 2.0, L / 2.0, length = N)]
     update_V = ((V, x, t) -> V_fct(V, x, t, xarray, para_V...))
     ɸ_step = ((ɸ, V, t) -> ɸ_fct(ɸ, V, t, Δt, parameter_ɸ...))
-    x_step = ((ɸ, V, x, ẋ) -> x_fct(ɸ, V, x, ẋ, Δt, para_x...))
+    a_step = ((ɸ, V) -> x_fct(ɸ, V, para_x...))
     ɸ_r = [zero(ɸ) for _ = 1:length(times_save)]
     x_r = [zero(x) for _ = 1:length(times_save)]
     ẋ_r = [zero(ẋ) for _ = 1:length(times_save)]
     ẍ_r = [zero(ẋ) for _ = 1:length(times_save)]
     j = 1
-    
+    update_V(V, x, 0.0)
+    temp = a_step(ɸ, V)
     for i = 1:Nt
-        update_V(V, x, i * Δt)
-        temp = x_step(ɸ, V, x, ẋ)
+        a = temp
+        x = x + Δt* ẋ + 0.5 * Δt^2 * a 
         ɸ_step(ɸ, V[1], i * Δt)
+        update_V(V, x, i * Δt)
+        temp = a_step(ɸ, V)
+        ẋ = ẋ + 0.5 * Δt * (a + temp)
         
         if i == times_save[length(times_save)] # O(1) 
             ɸ_r[j] = deepcopy(ɸ)
             x_r[j] = deepcopy(x)
             ẋ_r[j] = deepcopy(ẋ)
-            ẍ_r[j] = deepcopy(temp)
+            ẍ_r[j] = deepcopy(a)
             j += 1
             pop!(times_save) # O(1) 
         end
