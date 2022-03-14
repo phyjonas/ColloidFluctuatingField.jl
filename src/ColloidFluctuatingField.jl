@@ -10,6 +10,7 @@ include("helper.jl")
 include("modelA_fourier_galerkin.jl")
 include("NewtonImp.jl")
 include("solver.jl")
+include("driven_cond.jl")
 
 @with_kw struct para
     Nt::Int64
