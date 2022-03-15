@@ -14,9 +14,10 @@ function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Array{
     temp = a_step(ɸ, V)
     for i = 1:Nt
         a = temp
-        x = x + Δt* ẋ + 0.5 * Δt^2 * a 
-        ɸ_step(ɸ, V[1], i * Δt)
+        x = (x + Δt* ẋ + 0.5 * Δt^2 * a ) 
         update_V(V, x, i * Δt)
+        ɸ = ɸ_step(ɸ, V[1], i * Δt)
+        
         temp = a_step(ɸ, V)
         ẋ = ẋ + 0.5 * Δt * (a + temp)
         

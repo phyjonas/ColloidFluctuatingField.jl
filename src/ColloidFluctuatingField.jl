@@ -26,7 +26,7 @@ include("driven_cond.jl")
     times_save::Array{Int64,1}=reverse([i for i = 1:Nt])
 end
 
-function check_method(method, dic, st)
+function check_method(method::String, dic::Dict, st::String)
     if haskey(dic,method)
         ans = dic[method]
         if ans === nothing
