@@ -13,13 +13,12 @@ function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Array{
     update_V(V, x, 0.0)
     temp = a_step(ɸ, V)
     for i = 1:Nt
-        a = temp
+        a = temp       
         x = (x + Δt* ẋ + 0.5 * Δt^2 * a ) 
-        update_V(V, x, i * Δt)
         ɸ = ɸ_step(ɸ, V[1], i * Δt)
-        
+        update_V(V, x, i * Δt)
         temp = a_step(ɸ, V)
-        ẋ = ẋ + 0.5 * Δt * (a + temp)
+        ẋ = ẋ + 0.5 * Δt * (a+temp)
         
         if i == times_save[length(times_save)] # O(1) 
             ɸ_r[j] = deepcopy(ɸ)
