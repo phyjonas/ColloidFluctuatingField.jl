@@ -67,13 +67,13 @@ function V_gaussian(V::Array{<:Array{Float64}}, x::Array, t::Float64, xarray::Ar
     d = length(size(V[1]))
     m = 0.5*L
     for I in R
-        temp = exp(-sum(((x[i] - xarray[I[i]] +m )%(2.0*m) -m )^2 for i = 1:d) / (2*re^2))
+        temp = exp(-sum(((x[i] - xarray[I[i]] +m )%(2.0*m) -m )^2 for i = 1:d) / (2*re))
         V[1][I] = temp
         for j = 2:length(V)
-            V[j][I] =  ((xarray[I[j-1]] - x[j-1]+m )%(2.0*m) -m) / (re^2) * temp
+            V[j][I] =  (((xarray[I[j-1]] - x[j-1]+m )%(2.0*m) -m) / (re) ) * temp
         end
     end
-    return (1 / sqrt(2.0*pi*re^2)^d) * V
+    return (1 / sqrt(2.0*pi*re)^d) * V
 end
 
 function V_fct_pinned(V, x, t, xarray, re)

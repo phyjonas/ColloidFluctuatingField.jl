@@ -10,13 +10,13 @@ function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Array{
     ẋ_r = [zero(ẋ) for _ = 1:length(times_save)]
     ẍ_r = [zero(ẋ) for _ = 1:length(times_save)]
     j = 1
-    update_V(V, x, 0.0)
+    V = update_V(V, x, 0.0)
     temp = a_step(ɸ, V)
     for i = 1:Nt
         a = temp       
         x = (x + Δt* ẋ + 0.5 * Δt^2 * a ) 
         ɸ = ɸ_step(ɸ, V[1], i * Δt)
-        update_V(V, x, i * Δt)
+        V = update_V(V, x, i * Δt)
         temp = a_step(ɸ, V)
         ẋ = ẋ + 0.5 * Δt * (a+temp)
         
