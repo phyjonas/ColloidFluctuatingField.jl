@@ -33,7 +33,7 @@ function check_method(method::String, dic::Dict, st::String)
             error("Please provide costum method for time propagation of" *st)
         end 
     else 
-        error("Method not found for"*st)
+        error("Method not found for "*st)
     end
     return ans
 end
