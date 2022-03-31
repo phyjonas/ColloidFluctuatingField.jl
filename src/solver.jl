@@ -13,7 +13,7 @@ function solver(Nt::Int , Δt::Float64, L::Float64, N::Int, ɸ::Array, x::Array{
     V = update_V(V, x, 0.0)
     temp = real.(a_step(ɸ, V))
     for i = 1:Nt
-        a = temp       
+        a = temp
         x = (x + Δt* ẋ + 0.5 * Δt^2 * a ) 
         ɸ = ɸ_step(ɸ, V[1], i * Δt)
         V = update_V(V, x, i * Δt)
