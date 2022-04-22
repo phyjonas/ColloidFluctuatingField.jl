@@ -5,10 +5,10 @@ function Φ_galerk_driven_cond(Φ::Array{ComplexF64}, V::Array{Float64},
    d = length(size(Φ))
    R = CartesianIndices(Φ)
    out = Array{Complex{Float64}}(undef, size(Φ))
-   @. out = (Φ - 1im * Δt * (g * abs(Φ)^2 + r + λ * V) * Φ - 1im * ξ)
+   @. out = (Φ -  Δt * (g * abs(Φ)^2 + r + λ * V) * Φ + ξ)
    out = fft(out)
    for I in R
-       out[I] = 1.0 / (1.0 + Δt * 1im * sum([K*k[I[i]]^2 for i = 1:d])) * out[I]
+       out[I] = 1.0 / (1.0 + Δt * sum([K*k[I[i]]^2 for i = 1:d])) * out[I]
    end
    out = ifft(out)
    @. Φ = out
